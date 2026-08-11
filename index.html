@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofia Sousa — Portfolio · Full Stack Web Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f1e7;
+      --paper-2: #efe7d8;
+      --ink: #1c1913;
+      --ink-soft: #6b6355;
+      --line: rgba(28, 25, 19, 0.14);
+      --rust: #b4451f;
+      --rust-soft: rgba(180, 69, 31, 0.1);
+      --gold: #d99a2b;
+      --teal: #1f7a6c;
+      --pink: #c94277;
+      --green: #3c5240;
+      --max: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--rust);
+      color: var(--paper);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* grain texture */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: multiply;
+    }
+
+    /* colour blobs — the life under the paper */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      animation: drift 22s ease-in-out infinite;
+    }
+
+    .blob1 {
+      width: 480px;
+      height: 480px;
+      background: var(--rust);
+      top: -160px;
+      right: -120px;
+    }
+
+    .blob2 {
+      width: 420px;
+      height: 420px;
+      background: var(--teal);
+      top: 30%;
+      left: -160px;
+      animation-delay: -7s;
+    }
+
+    .blob3 {
+      width: 380px;
+      height: 380px;
+      background: var(--gold);
+      bottom: -140px;
+      right: 15%;
+      animation-delay: -14s;
+    }
+
+    .blob4 {
+      width: 340px;
+      height: 340px;
+      background: var(--pink);
+      top: 60%;
+      right: -140px;
+      animation-delay: -4s;
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(50px, -40px) scale(1.12);
+      }
+
+      66% {
+        transform: translate(-40px, 30px) scale(0.92);
+      }
+    }
+
+    /* top strip */
+    .topstrip {
+      background: linear-gradient(90deg, var(--rust), var(--pink) 50%, var(--gold));
+      color: #fff;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      padding: 9px 0;
+      position: relative;
+      z-index: 51;
+    }
+
+    section,
+    header,
+    footer,
+    nav {
+      position: relative;
+      z-index: 2;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 6%;
+      position: relative;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .italic {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .idx {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--rust);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 6%;
+      background: rgba(246, 241, 231, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow .3s;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 2px 20px rgba(28, 25, 19, 0.06);
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .logo .dot {
+      color: var(--rust);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 38px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      position: relative;
+      padding-bottom: 2px;
+      transition: color .25s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 1px;
+      background: var(--rust);
+      transition: width .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cv {
+      font-size: 0.82rem;
+      border: 1px solid var(--ink);
+      padding: 8px 18px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .25s, color .25s;
+    }
+
+    .nav-cv:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .burger span {
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 60px 6% 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bgword {
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(5rem, 19vw, 15rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(28, 25, 19, 0.08);
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-top .idx {
+      padding-top: 10px;
+    }
+
+    .hero-meta {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7.4vw, 5.6rem);
+      line-height: 1;
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(100deg, var(--ink) 20%, var(--rust) 45%, var(--pink) 60%, var(--gold) 80%, var(--ink) 100%);
+      background-size: 280% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 9s linear infinite;
+    }
+
+    @keyframes shine {
+      to {
+        background-position: 280% center;
+      }
+    }
+
+    .hero-desc {
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-desc p {
+      max-width: 480px;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 200px;
+    }
+
+    .link-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 3px;
+      width: fit-content;
+      transition: .25s;
+    }
+
+    .link-arrow:hover {
+      color: var(--rust);
+      border-color: var(--rust);
+      gap: 14px;
+    }
+
+    /* marquee */
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 18px 0;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--rust), var(--pink));
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: scroll 26s linear infinite;
+    }
+
+    .marquee-track span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0 34px;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .marquee-track span::after {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ---------- Section shared ---------- */
+    .section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* colour rotation per section so it doesn't read flat */
+    .section:nth-of-type(2) .idx {
+      color: var(--teal);
+    }
+
+    .section:nth-of-type(3) .idx {
+      color: var(--gold);
+    }
+
+    .section:nth-of-type(4) .idx {
+      color: var(--pink);
+    }
+
+    .section:nth-of-type(5) .idx {
+      color: var(--teal);
+    }
+
+    .section:nth-of-type(6) .idx {
+      color: var(--gold);
+    }
+
+    .section:nth-of-type(2) .skill-row:hover {
+      background: rgba(31, 122, 108, 0.08);
+    }
+
+    .section:nth-of-type(2) .skill-row .tag {
+      color: var(--teal);
+    }
+
+    /* ---------- About ---------- */
+    .about {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 70px;
+    }
+
+    .about-lead {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .about p.body {
+      color: var(--ink-soft);
+      line-height: 1.8;
+      font-size: 1.02rem;
+      margin-bottom: 18px;
+    }
+
+    .facts {
+      border-top: 1px solid var(--line);
+    }
+
+    .fact {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    .fact span:first-child {
+      color: var(--ink-soft);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .fact span:last-child {
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* ---------- Skills ---------- */
+    .skills-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1.4fr 140px;
+      gap: 24px;
+      align-items: baseline;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding-left .3s;
+    }
+
+    .skill-row:hover {
+      padding-left: 10px;
+      background: var(--rust-soft);
+    }
+
+    .skill-row .n {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+    }
+
+    .skill-row h3 {
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+
+    .skill-row p {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .skill-row .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--rust);
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media(max-width:760px) {
+      .skill-row {
+        grid-template-columns: 36px 1fr;
+        row-gap: 8px;
+      }
+
+      .skill-row p {
+        grid-column: 1/3;
+      }
+
+      .skill-row .tag {
+        grid-column: 1/3;
+        text-align: left;
+      }
+    }
+
+    /* ---------- Process ---------- */
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px;
+    }
+
+    .process-step {
+      padding: 22px;
+      border-radius: 6px;
+      transition: transform .3s, background .3s;
+    }
+
+    .process-step:hover {
+      transform: translateY(-6px);
+      background: rgba(217, 154, 43, 0.08);
+    }
+
+    .process-step .idx {
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .process-step h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .process-step p {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    @media(max-width:900px) {
+      .process {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:560px) {
+      .process {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Education ---------- */
+    .edu-card {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 44px;
+      transition: box-shadow .3s, transform .3s;
+    }
+
+    .edu-card:hover {
+      box-shadow: 0 18px 50px rgba(180, 69, 31, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .edu-card .school {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--rust);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .edu-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+
+    .edu-card .year {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .modules {
+      list-style: none;
+    }
+
+    .modules li {
+      display: flex;
+      gap: 14px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+
+    .modules li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modules li strong {
+      color: var(--ink);
+      font-weight: 500;
+      min-width: 130px;
+    }
+
+    @media(max-width:800px) {
+      .edu-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Projects ---------- */
+    .project {
+      display: grid;
+      grid-template-columns: 70px 1.3fr 1.7fr;
+      gap: 32px;
+      padding: 44px 24px;
+      margin: 0 -24px;
+      border-top: 1px solid var(--line);
+      align-items: start;
+      border-radius: 6px;
+      transition: background .3s, transform .3s;
+    }
+
+    .project:hover {
+      background: rgba(180, 69, 31, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .project:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project .idx {
+      padding-top: 6px;
+    }
+
+    .project h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .project .problem {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--rust);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project p.desc {
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+    }
+
+    .project .role {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+
+    .project .role strong {
+      color: var(--ink);
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stack span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--ink-soft);
+    }
+
+    @media(max-width:800px) {
+      .project {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .note {
+      margin-top: 36px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Fraunces', serif;
+    }
+
+    /* ---------- Contact ---------- */
+    .contact {
+      text-align: left;
+    }
+
+    .contact h2 {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      margin-bottom: 40px;
+      max-width: 900px;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .big-link {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-style: italic;
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      transition: .25s;
+    }
+
+    .big-link:hover {
+      color: var(--rust);
+      border-color: var(--rust);
+    }
+
+    .social-list {
+      display: flex;
+      gap: 26px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .social-list a {
+      text-decoration: none;
+      color: var(--ink-soft);
+      border-bottom: 1px solid transparent;
+      transition: .25s;
+    }
+
+    .social-list a:hover {
+      color: var(--rust);
+      border-color: var(--rust);
+    }
+
+    footer {
+      padding: 30px 6%;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media(max-width:900px) {
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-row {
+        grid-template-columns: 36px 1fr;
+      }
+    }
+
+    @media(max-width:840px) {
+      .nav-links {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        height: calc(100vh - 66px);
+        width: 72%;
+        background: var(--paper);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 44px 30px;
+        gap: 28px;
+        transform: translateX(100%);
+        transition: transform .35s;
+        border-left: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        transform: translateX(0);
+      }
+
+      .nav-cv {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .hero-desc {
+        flex-direction: column;
+        gap: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="n">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#n)" />
+  </svg>
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+
+  <div class="topstrip">✦ Portfolio · Sofia Sousa · Full Stack Web Developer ✦</div>
+
+  <nav id="mainNav">
+    <div class="logo">Sofia Sousa<span class="dot">.</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#skills">Competências</a></li>
+      <li><a href="#process">Método</a></li>
+      <li><a href="#education">Formação</a></li>
+      <li><a href="#projects">Projetos</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <a class="nav-cv" href="mailto:sofia.martins.sousa.14@gmail.com">Pedir CV</a>
+    <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <header class="hero">
+    <span class="hero-bgword">PORTFOLIO</span>
+    <div class="wrap">
+      <div class="hero-top">
+        <span class="idx">Portfolio — 2026</span>
+        <div class="hero-meta">
+          Porto, Portugal<br>
+          Full Stack Web Developer<br>
+          CodeMaster, turma 2024/2025
+        </div>
+      </div>
+      <h1>Construo produtos<br>web <span class="italic">do zero à base de dados.</span></h1>
+      <div class="hero-desc">
+        <p>Sofia Sousa. Em 2025 completei a formação de Full Stack Web Developer na CodeMaster e desde então construo
+          aplicações completas — interface, lógica de servidor e dados — com atenção ao detalhe técnico e visual.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="link-arrow">Ver projetos →</a>
+          <a href="#contact" class="link-arrow">Contactar →</a>
+        </div>
+      </div>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Python</span><span>PHP</span><span>MySQL</span><span>Bootstrap</span>
+        <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Python</span><span>PHP</span><span>MySQL</span><span>Bootstrap</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="idx">01 — Sobre</span>
+        <h2>Perfil</h2>
+      </div>
+      <div class="about">
+        <div class="reveal">
+          <p class="about-lead">"Gosto de perceber como as coisas funcionam por dentro — e depois construí-las eu
+            mesma."</p>
+          <p class="body">Comecei o meu percurso em programação pela curiosidade de perceber o que está por trás de um
+            site: como um formulário chega a uma base de dados, como uma interface reage sem recarregar a página. Essa
+            curiosidade tornou-se formação e a formação tornou-se prática.</p>
+          <p class="body">Trabalho confortavelmente em todas as camadas de uma aplicação web: estruturo e estilizo
+            interfaces, escrevo lógica de servidor em PHP e Python, e desenho bases de dados relacionais em MySQL.
+            Prefiro soluções simples e código legível a soluções complexas mal explicadas.</p>
+        </div>
+        <div class="reveal">
+          <div class="facts">
+            <div class="fact"><span>Formação</span><span>Full Stack Web Developer — CodeMaster, 2025</span></div>
+            <div class="fact"><span>Foco atual</span><span>Frontend + Backend PHP/Python</span></div>
+            <div class="fact"><span>Bases de dados</span><span>MySQL</span></div>
+            <div class="fact"><span>Disponibilidade</span><span>Estágio · Freelance · Full-time</span></div>
+            <div class="fact"><span>Idiomas</span><span>Português · Inglês</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="idx">02 — Competências</span>
+        <h2>O que sei fazer</h2>
+      </div>
+      <div class="skills-list">
+        <div class="skill-row reveal">
+          <span class="n">01</span>
+          <h3>HTML5</h3>
+          <p>Marcação semântica e acessível — estruturo páginas pensando em SEO e em como diferentes dispositivos e
+            leitores de ecrã interpretam o conteúdo.</p>
+          <span class="tag">Frontend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">02</span>
+          <h3>CSS3</h3>
+          <p>Layouts responsivos com Flexbox e Grid, animações e transições subtis, e organização de estilos que não se
+            torna insustentável à terceira página.</p>
+          <span class="tag">Frontend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">03</span>
+          <h3>JavaScript</h3>
+          <p>Interatividade no browser, manipulação do DOM, validação de formulários e consumo de APIs — sem depender de
+            frameworks quando não são necessários.</p>
+          <span class="tag">Frontend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">04</span>
+          <h3>Bootstrap</h3>
+          <p>Construção rápida de interfaces responsivas e consistentes, com componentes adaptados à identidade de cada
+            projeto em vez de "aspeto genérico".</p>
+          <span class="tag">Frontend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">05</span>
+          <h3>PHP</h3>
+          <p>Lógica de servidor, autenticação de utilizadores, operações CRUD e ligação a bases de dados — o backend que
+            sustenta a interface.</p>
+          <span class="tag">Backend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">06</span>
+          <h3>Python</h3>
+          <p>Scripts de automação, tratamento de dados e lógica de aplicação — a ferramenta a que recorro quando o
+            problema pede clareza acima de tudo.</p>
+          <span class="tag">Backend</span>
+        </div>
+        <div class="skill-row reveal">
+          <span class="n">07</span>
+          <h3>MySQL</h3>
+          <p>Modelação de bases de dados relacionais, escrita de queries eficientes e normalização de dados para
+            aplicações que precisam de crescer.</p>
+          <span class="tag">Dados</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="idx">03 — Método</span>
+        <h2>Como trabalho</h2>
+      </div>
+      <div class="process">
+        <div class="process-step reveal">
+          <span class="idx">01</span>
+          <h3>Entender o problema</h3>
+          <p>Antes de escrever código, percebo o que a aplicação precisa de resolver e para quem.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="idx">02</span>
+          <h3>Estruturar os dados</h3>
+          <p>Desenho o modelo de base de dados primeiro — tudo o resto constrói-se sobre isso.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="idx">03</span>
+          <h3>Construir por camadas</h3>
+          <p>Backend funcional antes de frontend polido; interface antes de detalhes visuais.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="idx">04</span>
+          <h3>Testar e ajustar</h3>
+          <p>Reviso, testo casos reais de utilização e corrijo antes de considerar algo pronto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="education">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="idx">04 — Formação</span>
+        <h2>Percurso académico</h2>
+      </div>
+      <div class="edu-card reveal">
+        <div>
+          <div class="school">CodeMaster</div>
+          <h3>Full Stack Web Developer</h3>
+          <p class="year">Concluído em 2025</p>
+        </div>
+        <ul class="modules">
+          <li><strong>Frontend</strong> HTML5, CSS3, JavaScript e Bootstrap para interfaces responsivas</li>
+          <li><strong>Backend</strong> Lógica de servidor e desenvolvimento de APIs em PHP e Python</li>
+          <li><strong>Dados</strong> Modelação e gestão de bases de dados relacionais em MySQL</li>
+          <li><strong>Projetos</strong> Aplicações full stack completas, do design à base de dados</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="idx">05 — Trabalho</span>
+        <h2>Projetos</h2>
+      </div>
+
+      <div class="project reveal">
+        <span class="idx">01</span>
+        <div>
+          <h3>Gestor de Tarefas</h3>
+          <div class="problem">Problema: organizar tarefas sem depender de papel ou apps genéricas</div>
+          <div class="role"><strong>O que fiz:</strong> desenhei o schema da base de dados, construí a autenticação de
+            utilizadores e todas as operações CRUD.</div>
+        </div>
+        <div>
+          <p class="desc">Aplicação web onde cada utilizador gere as suas tarefas com estados (por fazer, em curso,
+            concluída), prazos e categorias. Autenticação própria, ligação a MySQL via PHP com queries preparadas para
+            evitar injeção SQL, e interface responsiva construída com Bootstrap.</p>
+          <div class="stack"><span>PHP</span><span>MySQL</span><span>Bootstrap</span><span>JavaScript</span></div>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <span class="idx">02</span>
+        <div>
+          <h3>Dashboard Interativo</h3>
+          <div class="problem">Problema: visualizar dados sem recarregar a página a cada filtro</div>
+          <div class="role"><strong>O que fiz:</strong> implementei toda a camada de interatividade em JavaScript puro,
+            sem frameworks.</div>
+        </div>
+        <div>
+          <p class="desc">Painel que consome dados de uma API e apresenta métricas com filtros dinâmicos (data,
+            categoria, estado). Manipulação de DOM e fetch assíncrono em JavaScript vanilla, com layout responsivo em
+            CSS Grid e Flexbox.</p>
+          <div class="stack"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <span class="idx">03</span>
+        <div>
+          <h3>Script de Automação de Ficheiros</h3>
+          <div class="problem">Problema: organizar manualmente centenas de ficheiros por tipo e data</div>
+          <div class="role"><strong>O que fiz:</strong> desenvolvi a lógica de classificação e as regras de organização.
+          </div>
+        </div>
+        <div>
+          <p class="desc">Ferramenta de linha de comandos em Python que lê uma pasta, classifica ficheiros por extensão
+            e data de modificação, e organiza-os automaticamente em subpastas — com registo (log) de todas as operações
+            realizadas.</p>
+          <div class="stack"><span>Python</span></div>
+        </div>
+      </div>
+
+      <p class="note">* Projetos ilustrativos que representam o tipo de trabalho que desenvolvo — a atualizar com
+        repositórios reais brevemente.</p>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact" style="border-bottom:none;">
+    <div class="wrap">
+      <span class="idx reveal">06 — Contacto</span>
+      <h2 class="reveal" style="margin-top:20px;">Tens um projeto em mente<br>ou uma vaga para preencher?</h2>
+      <div class="contact-row reveal">
+        <a class="big-link" href="mailto:sofia.martins.sousa.14@gmail.com">sofia04sousa@icloud.com</a>
+        <div class="social-list">
+          <a href="#" onclick="return false;">LinkedIn</a>
+          <a href="www.github.com/soofiams" onclick="return false;">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Sofia Sousa</span>
+    <span>Full Stack Web Developer </span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+
+</body>
+
+</html>
